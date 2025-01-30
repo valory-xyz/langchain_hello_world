@@ -1,0 +1,6 @@
+agent_name: langchain_hello_world
+author: nrosa
+version: 0.1.0
+license: Apache-2.0
+description: Langchain basic example.
+docker_hash: 9a7bbed0e25be2c7eb621954ff17d69c4b62ab2070b7a86d7d3bcac0d409e37b
