@@ -5,9 +5,19 @@ from langgraph.prebuilt import create_react_agent
 from langgraph.checkpoint.memory import MemorySaver
 from dotenv import load_dotenv
 import time
+import os
 
 
 load_dotenv()
+
+if not os.environ.get("TAVILY_API_KEY"):
+    print("Looking for CONNECTION_CONFIGS_CONFIG_TAVILY_API_KEY env_var")
+    os.environ["TAVILY_API_KEY"] = os.environ.get("CONNECTION_CONFIGS_CONFIG_TAVILY_API_KEY")
+
+
+if not os.environ.get("OPENAI_API_KEY"):
+    print("Looking for CONNECTION_CONFIGS_CONFIG_OPENAI_API_KEY env_var")
+    os.environ["OPENAI_API_KEY"] = os.environ.get("CONNECTION_CONFIGS_CONFIG_OPENAI_API_KEY")
 
 search = TavilySearchResults(max_results=2)
 

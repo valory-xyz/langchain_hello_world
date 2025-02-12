@@ -12,11 +12,16 @@ WORKDIR /langchain_hello_world
 COPY pyproject.toml .
 COPY README.md . 
 
+COPY start.sh start.sh
+
 # COPY langchain_hello_world to build directoyy
 COPY langchain_hello_world/ langchain_hello_world/
 
 RUN curl -sSL 'https://install.python-poetry.org' | python - \
 && poetry --version && poetry install --only main --no-cache
 
+RUN chmod +x start.sh
 
-CMD ["python", "langchain_hello_world/__init__.py"]
+ENTRYPOINT ["/langchain_hello_world/start.sh"]
+
+HEALTHCHECK --interval=3s --timeout=600s --retries=600 CMD echo "Add your healthcheck command here" > /dev/null; if [ 0 != $? ]; then exit 1; fi;
