@@ -43,6 +43,17 @@ iteration = 0
 
 while(True):
     print(F"##### ITERATION {iteration} ASKING A QUESTION #####")
+
+    if iteration % 5 == 0:
+            print("[INFO] TRYING TO EXECUTE TRANSACTION ####")
+            if tx_executor.can_transact() == False:
+                print("[INFO] TRANSACTION CAN NOT BE EXECUTED")
+            else:
+                if tx_executor.execute("0xbd02335D8BBE6b5Bcb16Cc1cFD9878B214Cb8B47"):
+                    print("[INFO] TRANSACTION WAS EXECUTED SUCESSFULLY")
+                else:
+                    print("[INFO] TRANSACTION WAS NOT EXECUTED")
+
     try:
         for chunk in agent_executor.stream(
             {"messages": [HumanMessage(content="whats my name and what time it is where I live?")]}, config
@@ -51,17 +62,6 @@ while(True):
             print("----")
     except Exception as err:
         print(f"[ERROR] ITERATION {iteration} threw an exception: {err}")
-
-    if iteration % 5 == 0:
-        print("[INFO] TRYING TO EXECUTE TRANSACTION ####")
-        if tx_executor.can_transact() == False:
-            print("[INFO] TRANSACTION CAN NOT BE EXECUTED")
-        else:
-            if tx_executor.execute("0xbd02335D8BBE6b5Bcb16Cc1cFD9878B214Cb8B47"):
-                 print("[INFO] TRANSACTION WAS EXECUTED SUCESSFULLY")
-            else:
-                 print("[INFO] TRANSACTION WAS NOT EXECUTED")
-
 
     print("##### STARTING AGAIN IN 10 SECONDS #####")
     iteration += 1
