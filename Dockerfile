@@ -1,4 +1,3 @@
-#FROM langchain/langchain
 FROM python:3.12
 
 ENV POETRY_VERSION=2.0.1 \
@@ -17,8 +16,13 @@ COPY start.sh start.sh
 # COPY langchain_hello_world to build directoyy
 COPY langchain_hello_world/ langchain_hello_world/
 
-RUN curl -sSL 'https://install.python-poetry.org' | python - \
-&& poetry --version && poetry install --only main --no-cache
+RUN curl -sSL 'https://install.python-poetry.org' | python3 - \
+&& poetry --version && poetry install
+
+#Force installation here because
+#even though this is specified on pyproject.toml it wasn't being added to the image
+RUN pip install safe-eth-py web3 hexbytes
+
 
 RUN chmod +x start.sh
 
