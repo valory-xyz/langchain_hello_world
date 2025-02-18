@@ -61,27 +61,30 @@ Before setting up the environment, ensure you have the following installed:
 
 When executing this agent through Olas Quickstart the safe wallet and agent private key will be automatically setup, however you can follow these steps if you want to test transactions execution locally:
 
-1. Prepare some wallet private key that will act as the signer of your local transactions. Save this private key on a file called `ethereum_private_key.txt` on a folder called `agent_key`
-
-    ```sh
-    echo "<Your private key here>" > /agent_key/ethereum_private_key.txt
+1. Prepare some wallet address that will act as the signer of your local transactions. Setup the `ethereum_private_key.txt` file by duplicating the `ethereum_private_key.txt.example` file and renaming it to `ethereum_private_key.txt`.
+    ```bash
+    cp ./agent_key/ethereum_private_key.txt.example ./agent_key/ethereum_private_key.txt
     ```
+    Then fill in your wallet private key. Be carefull with extra characters in the file.
 
-2. Deploy a [Safes on Gnosis](https://app.safe.global/welcome) (it's free) and set your wallet address the signer. Set the signature threshold to 1 out of 4.
+2. Deploy a [Safes on Gnosis](https://app.safe.global/welcome) (it's free) and set your wallet address the signer. Set the signature threshold to 1 out of 4. Do not forget to activate your safe.
 
 3. Create a [Tenderly](https://tenderly.co/) account and from your dashboard create a fork of Gnosis chain (virtual testnet).
 
 4. From Tenderly, fund your wallet and Safe with some xDAI.
 
-5. Then add the following environment variables:
+5. Then add the following variables to your .env file:
    
     - `CONNECTION_LEDGER_CONFIG_LEDGER_APIS_GNOSIS_ADDRESS` - Set it to your Tenderly fork Admin RPC
-    - `CONNECTION_CONFIGS_CONFIG_SAFE_CONTRACT_ADDRESSES` - The safe contract address created on step 2.
+    - `CONNECTION_CONFIGS_CONFIG_SAFE_CONTRACT_ADDRESSES` - A dictionary with the safe contract address created on step 2 as the value and the network as the key, for example:
+     ```bash
+   CONNECTION_CONFIGS_CONFIG_SAFE_CONTRACT_ADDRESSES={"gnosis":"0x242Ee6B9aa082a31243BDb23c127A36C49BAf4E1"}
+    ```
  
 6. Start agent execution and you should see some transactions being executed on Tenderly explorer:
 
    ```sh
-   python src/main.py
+   python langchain_hello_world/main.py
    ```
 
 ## Docker
@@ -94,7 +97,7 @@ To deploy this agent to Olas you will need to have a docker image configured, en
 docker build -t langchain-hello-world .
 
 #Run the container
-docker run --rm -it langchain-hello-world
+docker run --env-file .env langchain-hello-world --rm
 
 ```
 
@@ -104,7 +107,7 @@ docker run --rm -it langchain-hello-world
 #Login to docker
 docker login
 
-#Tag the image built previously with correct tag
+#Tag the image built previously
 docker tag langchain-hello-world <docker_repo_name>/langchain-hello-world:<tag_name>
 
 #Push it to a public docker hub repository
