@@ -13,8 +13,8 @@ COPY README.md .
 
 COPY start.sh start.sh
 
-# COPY langchain_hello_world to build directoyy
-COPY langchain_hello_world/ langchain_hello_world/
+# Copy agent to build directoyy
+COPY src/ langchain_hello_world/
 
 RUN curl -sSL 'https://install.python-poetry.org' | python3 - \
 && poetry --version && poetry install
