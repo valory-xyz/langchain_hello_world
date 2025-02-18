@@ -17,6 +17,8 @@ class TransactionExecutor:
         self.__rpc_url = None
         self.__service_safe_address = None
         self.__agent_pk = None
+        self.__w3 = None
+        self.__safe = None
 
         try:
             print(f"[INFO] Retrieving RPC URL")
@@ -51,24 +53,27 @@ class TransactionExecutor:
         except Exception as e:
             print(f"[ERROR] {e}")
 
-        #Configuring Safe SDK clients
-        ethereum_client = EthereumClient(self.__rpc_url)
+        if self.__rpc_url is not None and self.__service_safe_address is not None and  self.__agent_pk is not None:
+            #Configuring Safe SDK clients
+            ethereum_client = EthereumClient(self.__rpc_url)
 
-        # Instantiate the factory contract
-        self.__w3 = Web3(Web3.HTTPProvider(self.__rpc_url))
+            # Instantiate the factory contract
+            self.__w3 = Web3(Web3.HTTPProvider(self.__rpc_url))
 
-        # Instantiate a Safe
-        self.__safe = Safe(self.__service_safe_address, ethereum_client)
+            # Instantiate a Safe
+            self.__safe = Safe(self.__service_safe_address, ethereum_client)
 
-        print("[INFO] TransactionExecutor initialized.")          
+            print("[INFO] TransactionExecutor initialized.")
+        else:
+            print("[INFO] TransactionExecutor could NOT be initialized.")
 
     def execute(self, to_address:str)->bool:
         """
-        Return strue if the transaction is executed with success.
+        Returns true if the transaction is executed with success.
         returns false otherwise.
         """
 
-        if self.__rpc_url is None or self.__service_safe_address is None or self.__agent_pk is None:
+        if self.__safe is None or self.__w3 is None:
             return False
         
         try:

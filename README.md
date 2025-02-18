@@ -53,7 +53,7 @@ Before setting up the environment, ensure you have the following installed:
 4. Start agent execution:
 
    ```sh
-   python src/main.py
+   python langchain_hello_world/main.py
    ```
 
 

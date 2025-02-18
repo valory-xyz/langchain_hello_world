@@ -2,6 +2,6 @@ image-fs/*
 image-fs.tar
 .env
 /agent_key/*
-/src/__pycache__/*
 langchain_agent.spec
 .vscode/launch.json
+langchain_hello_world/__pycache__/*
