@@ -1,0 +1,8 @@
+image-fs/*
+image-fs.tar
+.env
+/agent_key/*
+!/agent_key/ethereum_private_key.txt.example
+langchain_agent.spec
+.vscode/launch.json
+langchain_hello_world/__pycache__/*
