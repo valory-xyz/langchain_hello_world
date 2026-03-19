@@ -19,7 +19,6 @@ agent_runner_{os_name}_{arch}[.exe]
 | `macos`   | `x64`  | `agent_runner_macos_x64` |
 | `macos`   | `arm64`| `agent_runner_macos_arm64` |
 | `windows` | `x64`  | `agent_runner_windows_x64.exe` |
-| `windows` | `arm64`| `agent_runner_windows_arm64.exe` |
 
 > **Important:** PyInstaller produces a binary for the OS and CPU architecture it runs on. To build for a different target, you must build natively on that platform — cross-compilation is not supported.
 
@@ -38,7 +37,6 @@ The workflow runs six parallel jobs — one per OS/arch combination — using Gi
 | macOS | x64 | `macos-13` (Intel) |
 | macOS | arm64 | `macos-latest` (Apple Silicon) |
 | Windows | x64 | `windows-latest` |
-| Windows | arm64 | `windows-11-arm` |
 
 Each job:
 1. Installs Python 3.10 and Poetry 1.8.4

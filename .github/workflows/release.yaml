@@ -24,7 +24,7 @@ jobs:
           - runner: ubuntu-24.04-arm
             os_name: linux
             arch: arm64
-          - runner: macos-13
+          - runner: macos-14
             os_name: macos
             arch: x64
           - runner: macos-latest
@@ -33,9 +33,6 @@ jobs:
           - runner: windows-latest
             os_name: windows
             arch: x64
-          - runner: windows-11-arm
-            os_name: windows
-            arch: arm64
 
     defaults:
       run:
